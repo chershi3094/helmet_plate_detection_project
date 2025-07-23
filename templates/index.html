@@ -1,0 +1,80 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Helmet & License Plate Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            margin: 10px;
+        }
+
+        img {
+            max-width: 500px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .detected {
+            color: green;
+        }
+
+        .not-detected {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Helmet & License Plate Detection</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <br>
+        <input type="submit" value="Upload & Detect">
+    </form>
+
+    {% if image_path %}
+        <img src="{{ image_path }}" alt="Uploaded Image">
+    {% endif %}
+
+    {% if result %}
+        <div class="result">
+            <p>Helmet:
+                {% if result.helmet %}
+                    <span class="detected">✅ Detected</span>
+                {% else %}
+                    <span class="not-detected">❌ Not Detected</span>
+                {% endif %}
+            </p>
+            <p>License Plate Number: <strong>{{ result.license_plate }}</strong></p>
+        </div>
+    {% endif %}
+
+</body>
+</html>
